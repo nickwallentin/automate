@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "Inter";
+  src: url("../../static/fonts/Inter-Regular.otf") format("opentype");
+  display: swap;
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Inter Medium";
+  src: url("../../static/fonts/Inter-Medium.otf") format("opentype");
+  display: swap;
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Inter Semibold";
+  src: url("../../static/fonts/Inter-SemiBold.otf") format("opentype");
+  display: swap;
+  font-weight: 600;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+body {
+  font-family: "Inter", sans-serif;
+}
