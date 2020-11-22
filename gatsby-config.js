@@ -18,6 +18,14 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-transformer-yaml",
     {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /assets/, // See below to configure properly
+        },
+      },
+    },
+    {
       resolve: "gatsby-source-filesystem",
       options: {
         name: "src",

@@ -1,9 +1,11 @@
 import { Link, graphql } from "gatsby"
+import { Section, Wrapper } from "../styles/styled"
 
 //this component handles the blur img & fade-ins
 import Img from "gatsby-image"
 import Layout from "../components/Layout"
 import React from "react"
+import { styled } from "linaria/react"
 import useBlogData from "../static_queries/useBlogData"
 
 export default function Blog(props) {
@@ -26,32 +28,40 @@ export default function Blog(props) {
   return (
     <Layout>
       <article>
-        <figure>
-          <Img
-            fluid={data.frontmatter.hero_image.childImageSharp.fluid}
-            alt={data.frontmatter.title}
-          />
-        </figure>
-        <div>
-          <h1>{data.frontmatter.title}</h1>
-          <h3>{data.frontmatter.date}</h3>
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: data.html }}></div>
-        <div>
-          <h2>Written By: {data.frontmatter.author}</h2>
-          <Link to={`blog/${nextSlug}`}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              version="1.1"
-              x="0px"
-              y="0px"
-              viewBox="0 0 26 26"
-              enableBackground="new 0 0 26 26"
-            >
-              <path d="M23.021,12.294l-8.714-8.715l-1.414,1.414l7.007,7.008H2.687v2h17.213l-7.007,7.006l1.414,1.414l8.714-8.713  C23.411,13.317,23.411,12.685,23.021,12.294z" />
-            </svg>
-          </Link>
-        </div>
+        <Section>
+          <BlogHero>
+            <Wrapper>
+              <h1>{data.frontmatter.title}</h1>
+            </Wrapper>
+          </BlogHero>
+        </Section>
+        <Section>
+          <Wrapper>
+            <BlogLayout>
+              <div>
+                <div dangerouslySetInnerHTML={{ __html: data.html }}></div>
+                <div>
+                  <h2>Written By: {data.frontmatter.author}</h2>
+                  <Link to={`blog/${nextSlug}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      version="1.1"
+                      x="0px"
+                      y="0px"
+                      viewBox="0 0 26 26"
+                      enableBackground="new 0 0 26 26"
+                    >
+                      <path d="M23.021,12.294l-8.714-8.715l-1.414,1.414l7.007,7.008H2.687v2h17.213l-7.007,7.006l1.414,1.414l8.714-8.713  C23.411,13.317,23.411,12.685,23.021,12.294z" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+              <aside>
+                <h4>Table of contents</h4>
+              </aside>
+            </BlogLayout>
+          </Wrapper>
+        </Section>
       </article>
     </Layout>
   )
@@ -81,3 +91,11 @@ export const getPostData = graphql`
     }
   }
 `
+
+const BlogLayout = styled.div`
+  display: grid;
+  grid-template-columns: min(60ch, 100%) 1fr;
+  grid-gap: 2rem;
+`
+
+const BlogHero = styled.div``
