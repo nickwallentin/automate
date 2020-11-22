@@ -2,22 +2,18 @@
 label: Blog Post
 hide_body: false
 fields:
+- name: draft
+  type: boolean
+  label: Public
+  default: false
 - type: text
   name: title
   label: title
-- name: author
-  type: select
-  default: ''
+- name: subtitle
+  type: text
   config:
-    required: true
-    options: []
-    source:
-      type: documents
-      section: author-list
-      file: content/data/authors.yaml
-      path: authors
-  label: author
-  description: Enter author of post
+    required: false
+  label: Subtitle
 - name: date
   type: datetime
   label: date
