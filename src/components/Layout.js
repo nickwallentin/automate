@@ -22,24 +22,4 @@ export default function Layout(props) {
   )
 }
 
-const GlobalStyles = styled.div`
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: "Inter Semibold", sans-serif;
-  }
-  body {
-    font-size: 1.5rem;
-    line-height: 4ex;
-  }
-  p {
-    margin-bottom: 4ex;
-  }
-  h1 {
-    font-size: 6rem;
-    line-height: 2ex;
-  }
-`
+const GlobalStyles = styled.div``

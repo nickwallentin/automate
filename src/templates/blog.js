@@ -1,10 +1,12 @@
 import { Link, graphql } from "gatsby"
 import { Section, Wrapper } from "../styles/styled"
+import { motion, useTransform, useViewportScroll } from "framer-motion"
 
-//this component handles the blur img & fade-ins
 import Img from "gatsby-image"
 import Layout from "../components/Layout"
 import React from "react"
+import Sickty from "react-sticky-el"
+import Sticky from "react-sticky-el"
 import { styled } from "linaria/react"
 import useBlogData from "../static_queries/useBlogData"
 
@@ -12,6 +14,23 @@ export default function Blog(props) {
   const data = props.data.markdownRemark
   const allBlogData = useBlogData()
   const nextSlug = getNextSlug(data.fields.slug)
+  const { scrollYProgress } = useViewportScroll()
+  const alphaAnim = useTransform(scrollYProgress, [0, 0.02, 0.05], [1, 0.5, 0])
+  const yPosAnim = useTransform(
+    scrollYProgress,
+    [0, 0.02, 0.05],
+    [0, -50, -100]
+  )
+  const yBodyPosAnim = useTransform(
+    scrollYProgress,
+    [0, 0.02, 0.05],
+    [0, -100, -200]
+  )
+  const bodyAlphaAnim = useTransform(
+    scrollYProgress,
+    [0, 0.02, 0.05],
+    [0, 0.5, 1]
+  )
 
   function getNextSlug(slug) {
     const allSlugs = allBlogData.map(blog => {
@@ -29,36 +48,35 @@ export default function Blog(props) {
     <Layout>
       <article>
         <Section>
-          <BlogHero>
-            <Wrapper>
-              <h1>{data.frontmatter.title}</h1>
-            </Wrapper>
-          </BlogHero>
+          <Wrapper>
+            <Hero>
+              <h1>
+                Atomation <span>The Beginner's Guide</span>
+              </h1>
+              <p>
+                Far far away, behind the word mountains, far from the countries
+                Vokalia and Consonantia, there live the blind texts. Separated
+                they live in Bookmarksgrove.
+              </p>
+            </Hero>
+          </Wrapper>
         </Section>
-        <Section>
+
+        <Section style={{ paddingTop: "0px" }}>
           <Wrapper>
             <BlogLayout>
-              <div>
+              <motion.div>
                 <div dangerouslySetInnerHTML={{ __html: data.html }}></div>
-                <div>
-                  <h2>Written By: {data.frontmatter.author}</h2>
-                  <Link to={`blog/${nextSlug}`}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      version="1.1"
-                      x="0px"
-                      y="0px"
-                      viewBox="0 0 26 26"
-                      enableBackground="new 0 0 26 26"
-                    >
-                      <path d="M23.021,12.294l-8.714-8.715l-1.414,1.414l7.007,7.008H2.687v2h17.213l-7.007,7.006l1.414,1.414l8.714-8.713  C23.411,13.317,23.411,12.685,23.021,12.294z" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-              <aside>
-                <h4>Table of contents</h4>
-              </aside>
+              </motion.div>
+              <Sticky stickyClassName="sticky">
+                <aside>
+                  <h4>Table of contents</h4>
+                  <div
+                    id="toc-links"
+                    dangerouslySetInnerHTML={{ __html: data.tableOfContents }}
+                  ></div>
+                </aside>
+              </Sticky>
             </BlogLayout>
           </Wrapper>
         </Section>
@@ -75,6 +93,7 @@ export const getPostData = graphql`
       fields {
         slug
       }
+      tableOfContents(maxDepth: 3)
       frontmatter {
         title
         author
@@ -92,10 +111,39 @@ export const getPostData = graphql`
   }
 `
 
-const BlogLayout = styled.div`
+const BlogLayout = styled(motion.div)`
   display: grid;
-  grid-template-columns: min(60ch, 100%) 1fr;
-  grid-gap: 2rem;
+  grid-template-columns: min(50ch, 100%) 1fr;
+  grid-gap: 10vw;
+
+  aside {
+    padding-top: 40px;
+    font-size: 1rem;
+    a {
+      text-decoration: none;
+      color: var(--c-text-3);
+      &:hover {
+        color: var(--c-text);
+      }
+    }
+  }
 `
 
-const BlogHero = styled.div``
+const Hero = styled(motion.div)`
+  scale: 1;
+  opacity: 1;
+  padding: 10vh 0px;
+  h1 {
+    span {
+      display: block;
+      color: #666;
+    }
+  }
+  p {
+    font-size: 2rem;
+    line-height: 3ex;
+    max-width: 800px;
+    font-family: "Inter Medium", sans-serif;
+    margin-bottom: 0px;
+  }
+`

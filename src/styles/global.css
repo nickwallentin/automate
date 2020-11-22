@@ -17,6 +17,18 @@
   font-weight: 600;
 }
 
+:root {
+}
+body,
+body.light {
+  --c-text: black;
+  --c-text-2: #333333;
+  --c-text-3: #666666;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 html,
 body {
   font-family: "Inter", sans-serif;
@@ -29,6 +41,7 @@ h4,
 h5,
 h6 {
   font-family: "Inter Semibold", sans-serif;
+  margin-bottom: 1ex;
 }
 body {
   font-size: 1.5rem;
@@ -37,11 +50,22 @@ body {
 p {
   margin-bottom: 4ex;
 }
+#toc-links p {
+  margin-bottom: 0px;
+}
 h1 {
-  font-size: 6rem;
+  font-size: 4rem;
   line-height: 2ex;
 }
 h2 {
-  font-size: 5rem;
+  font-size: 3rem;
   line-height: 2ex;
+}
+h3 {
+  font-size: 2rem;
+  line-height: 2ex;
+}
+
+a {
+  font-family: "Inter Medium", sans-serif;
 }
