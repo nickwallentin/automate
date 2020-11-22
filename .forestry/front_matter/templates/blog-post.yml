@@ -8,7 +8,7 @@ fields:
   default: false
 - type: text
   name: title
-  label: title
+  label: Title
 - name: subtitle
   type: text
   config:
