@@ -51,13 +51,10 @@ export default function Blog(props) {
           <Wrapper>
             <Hero>
               <h1>
-                Atomation <span>The Beginner's Guide</span>
+                {data.frontmatter.title}{" "}
+                <span>{data.frontmatter.subtitle}</span>
               </h1>
-              <p>
-                Far far away, behind the word mountains, far from the countries
-                Vokalia and Consonantia, there live the blind texts. Separated
-                they live in Bookmarksgrove.
-              </p>
+              <p>{data.frontmatter.description}</p>
             </Hero>
           </Wrapper>
         </Section>
@@ -96,7 +93,8 @@ export const getPostData = graphql`
       tableOfContents(maxDepth: 3)
       frontmatter {
         title
-        author
+        subtitle
+        description
         date(formatString: "MMMM Do, YYYY")
         hero_image {
           childImageSharp {
@@ -117,8 +115,13 @@ const BlogLayout = styled(motion.div)`
   grid-gap: 10vw;
 
   aside {
+    transition: opacity 500ms;
+    opacity: 0.4;
     padding-top: 40px;
     font-size: 1rem;
+    &:hover {
+      opacity: 1;
+    }
     a {
       text-decoration: none;
       color: var(--c-text-3);
@@ -143,7 +146,7 @@ const Hero = styled(motion.div)`
     font-size: 2rem;
     line-height: 3ex;
     max-width: 800px;
-    font-family: "Inter Medium", sans-serif;
+    font-family: "Inter Semibold", sans-serif;
     margin-bottom: 0px;
   }
 `

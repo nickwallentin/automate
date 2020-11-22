@@ -9,8 +9,9 @@ export default function useBlogData() {
             id
             frontmatter {
               date(formatString: "MMMM Do, YYYY")
-              author
               title
+              subtitle
+              description
               hero_image {
                 childImageSharp {
                   fluid(maxWidth: 800) {
