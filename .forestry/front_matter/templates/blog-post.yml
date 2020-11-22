@@ -14,6 +14,16 @@ fields:
   config:
     required: false
   label: Subtitle
+- name: description
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: false
+    schema:
+      format: markdown
+    max: 158
+  label: Description
 - name: date
   type: datetime
   label: date
